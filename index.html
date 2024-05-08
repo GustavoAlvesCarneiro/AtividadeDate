@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulação de Datas</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <h1>Manipulação de Datas</h1>
+    <p>Insira duas datas para realizar as operações:</p>
+
+    <label for="data1">Data 1:</label>
+    <input type="date" id="data1"><br><br>
+
+    <label for="data2">Data 2:</label>
+    <input type="date" id="data2"><br><br>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        function maiorData(data1, data2) {
+            return data1.getTime() > data2.getTime() ? data1 : data2;
+        }
+
+        function calcularIntervalo(dataMaisAntiga, dataMaisRecente) {
+            if (dataMaisAntiga > dataMaisRecente) {
+                return "Erro: A primeira data deve ser mais antiga que a segunda.";
+            }
+
+            const diferencaMS = dataMaisRecente - dataMaisAntiga;
+            const diferencaDias = diferencaMS / (1000 * 60 * 60 * 24);
+            
+            return diferencaDias + " dias";
+        }
+
+        function dataAtualFormatada() {
+            const dataAtual = new Date();
+            const dia = dataAtual.getDate().toString().padStart(2, '0');
+            const mes = (dataAtual.getMonth() + 1).toString().padStart(2, '0');
+            const ano = dataAtual.getFullYear();
+            const hora = dataAtual.getHours().toString().padStart(2, '0');
+            const minuto = dataAtual.getMinutes().toString().padStart(2, '0');
+
+            return hora + ":" + minuto + " - " + dia + "/" + mes + "/" + ano;
+        }
+
+        function calcular() {
+            const data1 = new Date(document.getElementById('data1').value);
+            const data2 = new Date(document.getElementById('data2').value);
+            const resultado = document.getElementById('resultado');
+
+            if (isNaN(data1.getTime()) || isNaN(data2.getTime())) {
+                resultado.textContent = 'Por favor, insira datas válidas.';
+                return;
+            }
+
+            const dataMaior = maiorData(data1, data2);
+                console.log(dataMaior);
+            const intervalo = calcularIntervalo(data1, data2);
+            const dataAtual = dataAtualFormatada();
+
+            resultado.innerHTML = `
+                <p>Data maior: dia ${dataMaior.getDate()+1}</p>
+                <p>Intervalo entre as datas: ${intervalo}</p>
+                <p>Data atual formatada: ${dataAtual}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
