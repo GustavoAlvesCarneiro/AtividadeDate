@@ -21,21 +21,26 @@
     <div id="resultado"></div>
 
     <script>
+
+        //Compara qual das datas é a maior com o operador ternário.
         function maiorData(data1, data2) {
             return data1.getTime() > data2.getTime() ? data1 : data2;
         }
 
+        //Se a data1 for maior que a data2 aparece erro, pois a primeira deve ser menor que a segunda.
         function calcularIntervalo(dataMaisAntiga, dataMaisRecente) {
             if (dataMaisAntiga > dataMaisRecente) {
                 return "Erro: A primeira data deve ser mais antiga que a segunda.";
             }
 
+            //Faz a comparação entre as duas datas em milissegundos.
             const diferencaMS = dataMaisRecente - dataMaisAntiga;
-            const diferencaDias = diferencaMS / (1000 * 60 * 60 * 24);
+            const diferencaDias = diferencaMS / (1000 * 60 * 60 * 24);//Transforma milissegundos em dias.
             
             return diferencaDias + " dias";
         }
 
+        //Formata a data no padrão brasileiro.
         function dataAtualFormatada() {
             const dataAtual = new Date();
             const dia = dataAtual.getDate().toString().padStart(2, '0');
@@ -47,23 +52,28 @@
             return hora + ":" + minuto + " - " + dia + "/" + mes + "/" + ano;
         }
 
+        //Cria objetos para armazenar o valor inserido em data1 e data2, 
+        //além de obter o id da div resultado, onde aparecerão os resultados.
         function calcular() {
             const data1 = new Date(document.getElementById('data1').value);
             const data2 = new Date(document.getElementById('data2').value);
             const resultado = document.getElementById('resultado');
 
+            //Compara se as datas são válidas.
             if (isNaN(data1.getTime()) || isNaN(data2.getTime())) {
                 resultado.textContent = 'Por favor, insira datas válidas.';
                 return;
             }
 
+            //Chama todas as funções.
             const dataMaior = maiorData(data1, data2);
-                console.log(dataMaior);
             const intervalo = calcularIntervalo(data1, data2);
             const dataAtual = dataAtualFormatada();
 
+            //Printa na tela através da div os resultados.
+            //Utilizei o +1 pois a data estava dando errado.
             resultado.innerHTML = `
-                <p>Data maior: dia ${dataMaior.getDate()+1}</p>
+                <p>Data maior: dia ${dataMaior.getDate()+1}</p> 
                 <p>Intervalo entre as datas: ${intervalo}</p>
                 <p>Data atual formatada: ${dataAtual}</p>
             `;
