@@ -1,5 +1,4 @@
-  --Script está no HTML--
-=== Funções e explicações ===
+Script está no HTML - Funções e explicações:
 
 Função maiorData() utiliza o operador ternário, realizando uma comparação entre as duas datas:
 se data1 for maior que data2, a função retorna data1 como maior data,
